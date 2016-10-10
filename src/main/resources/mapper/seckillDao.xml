@@ -12,7 +12,7 @@
 		set
 			number = number-1
 		where
-			seckill_id = #{seckillId}
+			seckill_id = #{seckillId}<!-- 参数为对象，可直接用对象属性 -->
 		and start_time &lt;= #{killTime}
 		and end_time >= #{killTime}	
 		and number > 0
@@ -23,7 +23,7 @@
 		from
 			seckill
 		where
-			seckill_id=#{seckillId}
+			seckill_id=#{_parameter}
 	</select>
 	<select id="queryAll" resultType="seckill" parameterType="int">
 		select 
@@ -35,4 +35,13 @@
 		limit 
 			#{offset},#{limit}<!-- 形参不记录名字，这里在接口方法中对参数进行@Param("name")注解，也可直接使用#{0},#{1} -->
 	</select> 
+	
+	
+	<!-- 调用存储过程 -->
+	<select id="killByProcedure" statementType="CALLABLE" parameterType="java.util.Map">
+		CALL execute_seckill(#{seckillId,jdbcType=BIGINT,mode=IN},
+							#{phone,jdbcType=TIMESTAMP,mode=IN},
+							#{killTime,jdbcType=TIMESTAMP,mode=IN},
+							#{result,jdbcType=INTEGER,mode=OUT})
+	</select>
 </mapper>

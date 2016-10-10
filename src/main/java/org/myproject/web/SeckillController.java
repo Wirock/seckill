@@ -79,7 +79,8 @@ public class SeckillController {
 			return new SeckillResult<SeckillExecution>(false, "Î´×¢²á");
 		}
 		try {
-			SeckillExecution execution = seckillService.executeSeckill(seckillId, phone, md5);
+//			SeckillExecution execution = seckillService.executeSeckill(seckillId, phone, md5);
+			SeckillExecution execution = seckillService.executeSeckillByProcedure(seckillId, phone, md5);
 			return new SeckillResult<SeckillExecution>(true, execution);
 		} catch (RepeatKillException e) {
 			SeckillExecution seckillExcution = new SeckillExecution(seckillId, SeckillStateEnum.REPEAT_KILL);

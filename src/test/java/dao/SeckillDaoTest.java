@@ -1,7 +1,9 @@
 package dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -41,5 +43,18 @@ public class SeckillDaoTest {
 		Date killTime = new Date();
 		int updateCount = seckillDao.reduceNumber(1000L,killTime);
 		System.out.println(updateCount);
+	}
+	@Test
+	public void teestKillByProcedure(){
+		long seckillId = 1001L;
+		long phone = 13826248990L;
+		Date killTime = new Date();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("seckillId", seckillId);
+		map.put("phone", phone);
+		map.put("killTime", killTime);
+		map.put("result", null);
+		seckillDao.killByProcedure(map);
+		System.out.println(map.get("result"));
 	}
 }
